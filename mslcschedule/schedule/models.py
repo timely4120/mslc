@@ -51,11 +51,17 @@ class Tutor(models.Model):
     FirstName = models.CharField(max_length=50)
     LastName = models.CharField(max_length=50)
     Email = models.EmailField(max_length=100)
-    PhoneNumber = models.CharField(max_length=10)
+    PhoneNumber = models.CharField(max_length=10, )
     RequestedHours = models.DecimalField(max_digits=3, decimal_places=1)
 
     def __str__(self):
         return str(self.FirstName + " " + self.LastName)
+
+    def phoneString(self):
+        p = str(self.PhoneNumber)
+        pString = p[:3] + '-' + p[3:6] + '-' + p[-4:]
+        return pString
+
 
 
 class Subject(models.Model):
