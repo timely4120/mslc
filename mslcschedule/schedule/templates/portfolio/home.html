@@ -1,0 +1,62 @@
+{% extends 'portfolio/base.html' %}
+{% load staticfiles %}
+{% block content %}
+            {% if user.is_authenticated %}
+                <div class="page-container">
+
+                    <h2 class="top-menu">Hello {{ user.username }},</h2>
+                    <p>Please choose from below options.</p>
+
+                </div>
+            {% endif %}
+            <div class="content container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="links">
+                            <!-- Example row of columns -->
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="thumbnail">
+                                        <img src="{% static "images/tutor.png" %}" alt="tutor"/>
+                                        <div class="caption">
+                                            <h2>Tutors</h2>
+                                            <p>Our tutors are what make us special. They are more than capable of providing
+                                                help with most classes.</p>
+                                            <p><a class="btn btn-primary" href="{% url 'portfolio:tutor_list' %}"
+                                                  role="button">View
+                                                details &raquo;</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="thumbnail">
+                                        <img src="{% static "images/shifts.jpg" %}" alt="shifts"/>
+                                        <div class="caption">
+                                            <h2>Shifts</h2>
+                                            <p>Know when you or your favorite tutor is working!</p>
+                                            <p><a class="btn btn-primary" href="{% url 'portfolio:shift_list' %}"
+                                                  role="button">View
+                                                details &raquo;</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="thumbnail">
+                                        <img src="{% static "images/subjects.png" %}" alt="subjects"/>
+                                        <div class="caption">
+                                            <h2>Subjects</h2>
+                                            <p>The major subject areas we help in.</p>
+                                            <p><a class="btn btn-primary" href="{% url 'portfolio:subject_list' %}"
+                                                  role="button">View
+                                                details &raquo;</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </body>
+    </html>
+{% endblock %}
