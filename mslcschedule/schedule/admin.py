@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Tutor, Subject, Shift
+from .models import Tutor, Subject, Shift, Course
 
 
 class TutorList(admin.ModelAdmin):
@@ -23,6 +23,14 @@ class ShiftList(admin.ModelAdmin):
     ordering = ['TutorID']
 
 
+class CourseList(admin.ModelAdmin):
+    list_display = ('SubjectID', 'Department', 'Number', 'Name',)
+    list_filter = ('SubjectID', 'Department', 'Number', 'Name', 'TutorForCourse')
+    search_fields = ('SubjectID', 'Department', 'Number', 'Name', 'TutorForCourse')
+    ordering = ['SubjectID', 'Department', 'Number']
+
+
 admin.site.register(Tutor, TutorList)
 admin.site.register(Subject, SubjectList)
 admin.site.register(Shift, ShiftList)
+admin.site.register(Course, CourseList)

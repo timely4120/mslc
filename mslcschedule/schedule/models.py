@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils import timezone
+import datetime
 
 DAYS = [
     ('Monday', 'Monday'),
@@ -13,37 +13,37 @@ DAYS = [
 
 
 TIMES = [
-    ('08:30AM', '08:30'),
-    ('09:00AM', '09:00'),
-    ('09:30AM', '09:30'),
-    ('10:00AM', '10:00'),
-    ('10:30AM', '10:30'),
-    ('11:00AM', '11:00'),
-    ('11:30AM', '11:30'),
-    ('12:00PM', '12:00'),
-    ('12:30PM', '12:30'),
-    ('01:00PM', '13:00'),
-    ('01:30PM', '13:30'),
-    ('02:00PM', '14:00'),
-    ('02:30PM', '14:30'),
-    ('03:00PM', '15:00'),
-    ('03:30PM', '15:30'),
-    ('04:00PM', '16:00'),
-    ('04:30PM', '16:30'),
-    ('05:00PM', '17:00'),
-    ('05:30PM', '17:30'),
-    ('06:00PM', '18:00'),
-    ('06:30PM', '18:30'),
-    ('07:00PM', '19:00'),
-    ('07:30PM', '19:30'),
-    ('08:00PM', '20:00'),
-    ('08:30PM', '20:30'),
-    ('09:00PM', '21:00'),
-    ('09:30PM', '21:30'),
-    ('10:00PM', '22:00'),
-    ('10:30PM', '22:30'),
-    ('11:00PM', '23:00'),
-    ('11:30PM', '23:30'),
+    (datetime.time(8, 30, 0), '08:30 AM'),
+    (datetime.time(9, 0, 0), '09:00 AM'),
+    (datetime.time(9, 30, 0), '09:30 AM'),
+    (datetime.time(10, 0, 0), '10:00 AM'),
+    (datetime.time(10, 30, 0), '10:30 AM'),
+    (datetime.time(11, 0, 0), '11:00 AM'),
+    (datetime.time(11, 30, 0), '11:30 AM'),
+    (datetime.time(12, 0, 0), '12:00 PM'),
+    (datetime.time(12, 30, 0), '12:30 PM'),
+    (datetime.time(13, 0, 0), '1:00 PM'),
+    (datetime.time(13, 30, 0), '1:30 PM'),
+    (datetime.time(14, 0, 0), '2:00 PM'),
+    (datetime.time(14, 30, 0), '2:30 PM'),
+    (datetime.time(15, 0, 0), '3:00 PM'),
+    (datetime.time(15, 30, 0), '3:30 PM'),
+    (datetime.time(16, 0, 0), '4:00 PM'),
+    (datetime.time(16, 30, 0), '4:30 PM'),
+    (datetime.time(17, 0, 0), '5:00 PM'),
+    (datetime.time(17, 30, 0), '5:30 PM'),
+    (datetime.time(18, 0, 0), '6:00 PM'),
+    (datetime.time(18, 30, 0), '6:30 PM'),
+    (datetime.time(19, 0, 0), '7:00 PM'),
+    (datetime.time(19, 30, 0), '7:30 PM'),
+    (datetime.time(20, 0, 0), '8:00 PM'),
+    (datetime.time(20, 30, 0), '8:30 PM'),
+    (datetime.time(21, 0, 0), '9:00 PM'),
+    (datetime.time(21, 30, 0), '9:30 PM'),
+    (datetime.time(22, 0, 0), '10:00 PM'),
+    (datetime.time(22, 30, 0), '10:30 PM'),
+    (datetime.time(23, 0, 0), '11:00 PM'),
+    (datetime.time(23, 30, 0), '11:30 PM'),
 ]
 
 
@@ -63,7 +63,6 @@ class Tutor(models.Model):
         return pString
 
 
-
 class Subject(models.Model):
     Area = models.CharField(max_length=20)
 
@@ -72,8 +71,22 @@ class Subject(models.Model):
 
 
 class Shift(models.Model):
-    TutorID = models.ForeignKey(Tutor, related_name='tutor')
-    SubjectID = models.ForeignKey(Subject, related_name='subject')
+    TutorID = models.ForeignKey(Tutor, related_name='shiftTutor')
+    SubjectID = models.ForeignKey(Subject, related_name='shiftSubject')
     Day = models.CharField(max_length=20, choices=DAYS)
-    StartTime = models.CharField(max_length=20, choices=TIMES)
-    EndTime = models.CharField(max_length=20, choices=TIMES)
+    StartTime = models.TimeField(choices=TIMES)
+    EndTime = models.TimeField(choices=TIMES)
+
+    class Meta:
+        ordering = ["Day", "StartTime", "SubjectID"]
+
+
+class Course(models.Model):
+    SubjectID = models.ForeignKey(Subject, related_name='subjectCourse')
+    Department = models.CharField(max_length=4)
+    Number = models.CharField(max_length=4)
+    Name = models.CharField(max_length=200)
+    TutorForCourse = models.ManyToManyField(Tutor)
+
+    def __str__(self):
+        return str(self.Name)

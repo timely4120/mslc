@@ -3,6 +3,9 @@ from django.shortcuts import render, get_object_or_404
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from .forms import *
+from functools import reduce
+from django.db.models import Q
+import operator
 
 
 def home(request):
@@ -106,7 +109,27 @@ def subject_delete(request, pk):
 
 @login_required
 def shift_list(request):
-    shifts = Shift.objects.filter()
+    try:
+        a = request.GET.get('shift')
+    except KeyError:
+        a = None
+    if a:
+        if a == "All Shifts":
+            shifts = Shift.objects.filter()
+        else:
+            a_list = a.split()
+            shifts = Shift.objects.filter(
+                reduce(operator.and_,
+                       (Q(Day__icontains=a) for a in a_list)) |
+                reduce(operator.and_,
+                       (Q(TutorID__FirstName__icontains=a) for a in a_list)) |
+                reduce(operator.and_,
+                       (Q(SubjectID__Area__icontains=a) for a in a_list)) |
+                reduce(operator.and_,
+                       (Q(StartTime__icontains=a) for a in a_list))
+            )
+    else:
+        shifts = ""
     return render(request, 'portfolio/shift_list.html', {'shifts': shifts})
 
 
@@ -147,10 +170,10 @@ def shift_delete(request, pk):
     shifts = Shift.objects.filter()
     return render(request, 'portfolio/shift_list.html', {'shifts': shifts})
 
+
 @login_required
 def profile(request, pk):
     tutor = get_object_or_404(Tutor, pk=pk)
     tutors = Tutor.objects.filter()
-    shifts = Shift.objects.filter()
 
     return render(request, 'portfolio/profile.html', {'tutors': tutors, 'tutor': tutor})

@@ -1,90 +1,146 @@
 {% extends 'portfolio/base.html' %}
 {% block content %}
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>UNO Math-Science Learning Center</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>UNO Math-Science Learning Center</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
-    </head>
-    <style>
+</head>
+<style>
 
-        .btn-primary {
-            background-color: #0a0a0a;
-            border-color: #0a0a0a;
-        }
+    .btn-primary {
+        background-color: #0a0a0a;
+        border-color: #0a0a0a;
+    }
 
-        .panel > .panel-heading {
-            background-image: none;
-            background-color: #d71920;
-        }
+    .panel > .panel-heading {
+        background-image: none;
+        background-color: #d71920;
+    }
 
-        .panel, .panel-heading, .panel-body {
-            border-color: #d71920;
-        }
+    .panel, .panel-heading, .panel-body {
+        border-color: #d71920;
+    }
 
-        th {
-            background-color: #636568;
-            color: white;
-        }
-    </style>
-    <body>
-    <style>
-        body {
-            background-color: white;
-        }
-    </style>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">Welcome!</div>
-                    <div class="panel-body">
-                        UNO Math-Science Learning Center
-                    </div>
+    th {
+        background-color: #636568;
+        color: white;
+    }
+
+    .search {
+        margin: 5px 5px;
+    }
+
+    .not-text {
+        padding: 8px 15px;
+        display: inline-block;
+        margin: 0px 5px 20px 5px;
+    }
+</style>
+<body>
+<style>
+    body {
+        background-color: white;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Welcome!</div>
+                <div class="panel-body">
+                    Below is a schedule of all the shifts our tutors have.
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+{# Shift Search Form #}
+<form action="{% url 'portfolio:shift_list' %}" method="GET">
+    <input id="shift-search" type="text"
+           name="shift" value="{{ request.GET.event  }}"
+           class="form-control search" placeholder="Search"/>
+    <input type="submit" value="Search" class="btn btn-success form-button search not-text"/>
+    <input type="reset" value="Clear" class="btn btn-warning form-button search not-text"/>
+    <div class="alert alert-info search-alert search not-text" role="alert">For searches of Start Times, please use format</div>
+</form>
+
+<style>
+    .subject_search {
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    .btn-danger {
+        background-color: #d71920;
+    }
+
+    .normalize {
+        padding: 15px 40px;
+    }
+</style>
+
+<form action="{% url 'portfolio:shift_list' %}" method="GET" class="subject_search">
+    <input type="submit" name="shift" value="{{ 'Math' }}" class="btn btn-primary form-button normalize"/>
+</form>
+
+<form action="{% url 'portfolio:shift_list' %}" method="GET" class="subject_search">
+    <input type="submit" name="shift" value="{{ 'Chemistry' }}" class="btn btn-primary form-button normalize"/>
+</form>
+
+<form action="{% url 'portfolio:shift_list' %}" method="GET" class="subject_search">
+    <input type="submit" name="shift" value="{{ 'Physics' }}" class="btn btn-primary form-button normalize"/>
+</form>
+
+<form action="{% url 'portfolio:shift_list' %}" method="GET" class="subject_search">
+    <input type="submit" name="shift" value="{{ 'All Shifts' }}" class="btn btn-primary form-button normalize"/>
+</form>
+<form action="{% url 'portfolio:shift_list' %}" method="GET" class="subject_search">
+    <input type="submit" value="Reset" class="btn btn-danger form-button normalize"/>
+</form>
+
+<div class="row">
+    <h2 style="padding-left: 15Px">Shift Information</h2>
+</div>
+<div>
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+        <tr class="bg-info">
+            <th>Tutor</th>
+            <th>Subject</th>
+            <th>Day</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th colspan="2">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for shift in shifts%}
+        <tr>
+            <td>{{ shift.TutorID}}</td>
+            <td>{{ shift.SubjectID }}</td>
+            <td>{{ shift.Day }}</td>
+            <td>{{ shift.StartTime }}</td>
+            <td>{{ shift.EndTime }}</td>
+            <td><a href="{% url 'portfolio:shift_edit' pk=shift.pk %}"
+                   class="btn btn-primary">Edit</a></td>
+            <!-- <td><a href="{% url 'portfolio:shift_delete' pk=shift.pk %}"
+                   onclick="return confirm('Are you sure you want to delete?')"
+                   class="btn btn-danger">Delete</a> -->
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
     <div class="row">
-        <h2 style="padding-left: 15Px">Shift Information</h2>
+        <a href="{% url 'portfolio:shift_new' %}" class="row"><span
+                class="btn btn-primary">Add Shift</span></a>
     </div>
-    <div>
-        <table class="table table-striped table-bordered table-hover">
-            <thead>
-            <tr class="bg-info">
-                <th>Tutor</th>
-                <th>Subject</th>
-                <th>Day</th>
-                <th>Start Time</th>
-                <th>End Time</th>
-                <th colspan="2">Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for shift in shifts%}
-                <tr>
-                    <td>{{ shift.TutorID}}</td>
-                    <td>{{ shift.SubjectID }}</td>
-                    <td>{{ shift.Day }}</td>
-                    <td>{{ shift.StartTime }}</td>
-                    <td>{{ shift.EndTime }}</td>
-                    <td><a href="{% url 'portfolio:shift_edit' pk=shift.pk %}"
-                           class="btn btn-primary">Edit</a></td>
-                    <!-- <td><a href="{% url 'portfolio:shift_delete' pk=shift.pk %}"
-                           onclick="return confirm('Are you sure you want to delete?')"
-                           class="btn btn-danger">Delete</a> -->
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-     <div class="row">
-            <a href="{% url 'portfolio:shift_new' %}" class="row"><span
-                    class="btn btn-primary">Add Shift</span></a>
-        </div>
-    </div>
-    </body>
-    </html>
+</div>
+</body>
+</html>
 {% endblock %}
