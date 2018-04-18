@@ -175,5 +175,6 @@ def shift_delete(request, pk):
 def profile(request, pk):
     tutor = get_object_or_404(Tutor, pk=pk)
     tutors = Tutor.objects.filter()
+    courses = Course.objects.filter(TutorForCourse=pk)
 
-    return render(request, 'portfolio/profile.html', {'tutors': tutors, 'tutor': tutor})
+    return render(request, 'portfolio/profile.html', {'tutors': tutors, 'tutor': tutor, 'courses': courses})

@@ -89,4 +89,8 @@ class Course(models.Model):
     TutorForCourse = models.ManyToManyField(Tutor)
 
     def __str__(self):
-        return str(self.Name)
+        return str(self.Department + " " + self.Number + ": " + self.Name)
+
+
+# Add TutorForCourse field to Tutor
+Tutor.add_to_class('TutorForCourse', models.ManyToManyField('self', through=Course, related_name='followers', symmetrical=False))

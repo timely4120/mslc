@@ -68,7 +68,11 @@
         </tr>
         <tr>
             <td>{{ tutor.RequestedHours }}</td>
-            <td>{{ tutor.Course }}</td>
+            <td>
+                {% for course in courses %}
+                    {{ course }}<br/>
+                {% endfor %}
+            </td>
         </tr>
         </tbody>
     </table>
