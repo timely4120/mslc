@@ -9,6 +9,13 @@
 
                 </div>
             {% endif %}
+            {% if not request.user.is_superuser %}
+                <style>
+                    .col-md-12 {
+                        margin-top: 93px;
+                    }
+                </style>
+            {% endif %}
             <div class="content container">
                 <div class="row">
                     <div class="col-md-12">
