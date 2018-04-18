@@ -107,7 +107,6 @@ def subject_delete(request, pk):
     return render(request, 'portfolio/subject_list.html', {'subjects': subjects})
 
 
-@login_required
 def shift_list(request):
     try:
         a = request.GET.get('shift')
