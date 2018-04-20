@@ -2,13 +2,13 @@ from django.db import models
 import datetime
 
 DAYS = [
-    ('Monday', 'Monday'),
-    ('Tuesday', 'Tuesday'),
-    ('Wednesday', 'Wednesday'),
-    ('Thursday', 'Thursday'),
-    ('Friday', 'Friday'),
-    ('Saturday', 'Saturday'),
-    ('Sunday', 'Sunday'),
+    (1, 'Monday'),
+    (2, 'Tuesday'),
+    (3, 'Wednesday'),
+    (4, 'Thursday'),
+    (5, 'Friday'),
+    (6, 'Saturday'),
+    (7, 'Sunday'),
 ]
 
 
@@ -90,6 +90,16 @@ class Course(models.Model):
 
     def __str__(self):
         return str(self.Department + " " + self.Number + ": " + self.Name)
+
+
+class Availability(models.Model):
+    TutorID = models.ForeignKey(Tutor, related_name='availabilityTutor')
+    Day = models.CharField(max_length=20, choices=DAYS)
+    StartTime = models.TimeField(choices=TIMES)
+    EndTime = models.TimeField(choices=TIMES)
+
+    class Meta:
+        ordering = ["Day", "StartTime",]
 
 
 # Add TutorForCourse field to Tutor
