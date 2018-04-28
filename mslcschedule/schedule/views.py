@@ -230,7 +230,7 @@ def availability_edit(request, pk):
     else:
         # print("else")
         form = AvailabilityForm(instance=availability)
-    return render(request, 'portfolio/shift_edit.html', {'form': form})
+    return render(request, 'portfolio/availability_edit.html', {'form': form})
 
 
 @login_required

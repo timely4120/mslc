@@ -62,7 +62,7 @@
     </div>
 </div>
 
-{# Shift Search Form #}
+{# Availability Search Form #}
 <form action="{% url 'portfolio:availability_list' %}" method="GET">
     <input id="availability-search" type="text"
            name="availability" value="{{ request.GET.event  }}"
@@ -133,9 +133,6 @@
             <td><a href="{% url 'portfolio:availability_edit' pk=availability.pk %}"
                    class="btn btn-primary">Edit</a></td>
             {% endif %}
-            <!-- <td><a href="{% url 'portfolio:shift_delete' pk=shift.pk %}"
-                   onclick="return confirm('Are you sure you want to delete?')"
-                   class="btn btn-danger">Delete</a> -->
             </td>
         </tr>
         {% endfor %}
