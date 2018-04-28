@@ -63,7 +63,7 @@ class SubjectForm(forms.ModelForm):
 class ShiftForm(forms.ModelForm):
     class Meta:
         model = Shift
-        fields = ('TutorID', 'SubjectID', 'Day', 'StartTime', 'EndTime',)
+        fields = ('SubjectID', 'TutorID', 'Day', 'StartTime', 'EndTime',)
         labels = {
             'TutorID': 'Tutor',
             'SubjectID': 'Subject',

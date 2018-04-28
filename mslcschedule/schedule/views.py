@@ -169,7 +169,6 @@ def shift_delete(request, pk):
     return render(request, 'portfolio/shift_list.html', {'shifts': shifts})
 
 
-@login_required
 def profile(request, pk):
     tutor = get_object_or_404(Tutor, pk=pk)
     tutors = Tutor.objects.filter()
@@ -214,8 +213,8 @@ def availability_new(request):
             availabilities = Availability.objects.filter()
             return render(request, 'portfolio/availability_list.html', {'availabilities': availabilities})
     else:
-        form = ShiftForm()
-    return render(request, 'portfolio/shift_new.html', {'form': form})
+        form = AvailabilityForm()
+    return render(request, 'portfolio/availability_new.html', {'form': form})
 
 
 @login_required

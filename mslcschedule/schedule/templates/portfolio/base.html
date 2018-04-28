@@ -79,8 +79,11 @@
                 <li><a href="{% url 'portfolio:home' %}">Home</a></li>
                 <li><a href="{% url 'portfolio:tutor_list' %}">Tutors</a></li>
                 <li><a href="{% url 'portfolio:shift_list' %}">Schedule</a></li>
-                <li><a href="{% url 'portfolio:subject_list' %}">Subjects</a></li>
                 <li><a href="{% url 'portfolio:course_list' %}">Courses</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'portfolio:subject_list' %}">Subjects</a></li>
+                <li><a href="{% url 'admin:index' %}">Admin Login</a></li>
+                {% endif %}
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}

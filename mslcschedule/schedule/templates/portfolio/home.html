@@ -41,11 +41,11 @@
                                         <div class="caption">
                                             <h2>Schedule</h2>
                                             <style>
-                                                #shifts-desc, #subj-desc, #course-desc {
+                                                #shifts-desc, #subj-desc, #course-desc, #avail-desc {
                                                     height: 60px;
                                                 }
 
-                                                #subj-photo, #course-photo {
+                                                #subj-photo, #course-photo, #avail-photo {
                                                     height: 252.5px;
                                                 }
                                             </style>
@@ -58,19 +58,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="thumbnail">
-                                        <img src="{% static "images/subjects.png" %}" alt="subjects" id="subj-photo"/>
-                                        <div class="caption">
-                                            <h2>Subjects</h2>
-                                            <p id="subj-desc">The major subject areas we help in.</p>
-                                            <p><a class="btn btn-primary" href="{% url 'portfolio:subject_list' %}"
-                                                  role="button">View
-                                                details &raquo;</a></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="thumbnail">
-                                        <img src="{% static "images/subjects.png" %}" alt="courses" id="course-photo"/>
+                                        <img src="{% static "images/courses.jpg" %}" alt="courses" id="course-photo"/>
                                         <div class="caption">
                                             <h2>Courses</h2>
                                             <p id="course-desc">View all the different courses our current tutors can
@@ -81,6 +69,20 @@
                                         </div>
                                     </div>
                                 </div>
+                                {% if user.is_authenticated %}
+                                <div class="col-md-3">
+                                    <div class="thumbnail">
+                                        <img src="{% static "images/availability.png" %}" alt="availabilities" id="avail-photo"/>
+                                        <div class="caption">
+                                            <h2>Availability</h2>
+                                            <p id="avail-desc">Know when each tutor is available to work</p>
+                                            <p><a class="btn btn-primary" href="{% url 'portfolio:availability_list' %}"
+                                                  role="button">View
+                                                details &raquo;</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

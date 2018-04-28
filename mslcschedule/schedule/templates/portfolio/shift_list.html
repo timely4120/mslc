@@ -52,7 +52,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">Welcome!</div>
                 <div class="panel-body">
-                    Below is a schedule of all the shifts our tutors have.
+                    Below is a schedule of when each of our tutors works.
                     <br>
                     <br>
                     Use the subject buttons to filter the schedule by subject, or use the textbox to search for specific
@@ -131,8 +131,9 @@
             <th>Day</th>
             <th>Start Time</th>
             <th>End Time</th>
-            {% if request.user.is_superuser %}
             <th colspan="2">Actions</th>
+            {% if request.user.is_superuser %}
+
             {% endif %}
         </tr>
         </thead>
@@ -144,9 +145,12 @@
             <td>{{ shift.Day }}</td>
             <td>{{ shift.StartTime }}</td>
             <td>{{ shift.EndTime }}</td>
+            <td><a href="{% url 'portfolio:profile' pk=shift.TutorID.id %}"
+                   class="btn btn-danger">Tutor Profile</a>
             {% if request.user.is_superuser %}
-            <td><a href="{% url 'portfolio:shift_edit' pk=shift.pk %}"
+            <a href="{% url 'portfolio:shift_edit' pk=shift.pk %}"
                    class="btn btn-primary">Edit</a></td>
+
             {% endif %}
             <!-- <td><a href="{% url 'portfolio:shift_delete' pk=shift.pk %}"
                    onclick="return confirm('Are you sure you want to delete?')"

@@ -54,6 +54,7 @@
             <td>{{ tutor.FirstName }}</td>
             <td>{{ tutor.LastName }}</td>
         </tr>
+        {% if user.is_authenticated %}
         <tr>
             <th>Email</th>
             <th> Phone Number</th>
@@ -62,13 +63,18 @@
             <td>{{ tutor.Email }}</td>
             <td>{{ tutor.phoneString }}</td>
         </tr>
+        {% endif %}
         <tr>
+            {% if user.is_authenticated %}
             <th>Requested Hours</th>
-            <th>Courses</th>
+            {% endif %}
+            <th {% if not user.is_authenticated %} colspan="2" {% endif %}>Courses</th>
         </tr>
         <tr>
+            {% if user.is_authenticated %}
             <td>{{ tutor.RequestedHours }}</td>
-            <td>
+            {% endif %}
+            <td {% if not user.is_authenticated %} colspan="2" {% endif %}>
                 {% for course in courses %}
                     {{ course }}<br/>
                 {% endfor %}

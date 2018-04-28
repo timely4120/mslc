@@ -2,13 +2,13 @@ from django.db import models
 import datetime
 
 DAYS = [
-    (1, 'Monday'),
-    (2, 'Tuesday'),
-    (3, 'Wednesday'),
-    (4, 'Thursday'),
-    (5, 'Friday'),
-    (6, 'Saturday'),
-    (7, 'Sunday'),
+    ('Monday', 'Monday'),
+    ('Monday', 'Tuesday'),
+    ('Tuesday', 'Wednesday'),
+    ('Thursday', 'Thursday'),
+    ('Friday', 'Friday'),
+    ('Saturday', 'Saturday'),
+    ('Sunday', 'Sunday'),
 ]
 
 
