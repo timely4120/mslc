@@ -39,13 +39,13 @@
                                     <div class="thumbnail">
                                         <img src="{% static "images/shifts.jpg" %}" alt="shifts"/>
                                         <div class="caption">
-                                            <h2>Shifts</h2>
+                                            <h2>Schedule</h2>
                                             <style>
-                                                #shifts-desc, #subj-desc {
+                                                #shifts-desc, #subj-desc, #course-desc {
                                                     height: 60px;
                                                 }
 
-                                                #subj-photo {
+                                                #subj-photo, #course-photo {
                                                     height: 252.5px;
                                                 }
                                             </style>
@@ -63,6 +63,19 @@
                                             <h2>Subjects</h2>
                                             <p id="subj-desc">The major subject areas we help in.</p>
                                             <p><a class="btn btn-primary" href="{% url 'portfolio:subject_list' %}"
+                                                  role="button">View
+                                                details &raquo;</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="thumbnail">
+                                        <img src="{% static "images/subjects.png" %}" alt="courses" id="course-photo"/>
+                                        <div class="caption">
+                                            <h2>Courses</h2>
+                                            <p id="course-desc">View all the different courses our current tutors can
+                                                help with.</p>
+                                            <p><a class="btn btn-primary" href="{% url 'portfolio:course_list' %}"
                                                   role="button">View
                                                 details &raquo;</a></p>
                                         </div>

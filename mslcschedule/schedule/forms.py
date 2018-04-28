@@ -1,5 +1,5 @@
 from django import forms
-from .models import Tutor, Subject, Shift, Course
+from .models import Tutor, Subject, Shift, Course, Availability
 
 
 class TutorForm(forms.ModelForm):
@@ -72,3 +72,26 @@ class ShiftForm(forms.ModelForm):
             'EndTime': 'End Time',
         }
 
+
+class AvailabilityForm(forms.ModelForm):
+    class Meta:
+        model = Availability
+        fields = ('TutorID', 'Day', 'StartTime', 'EndTime',)
+        labels = {
+            'TutorID': 'Tutor',
+            'Day': 'Day',
+            'StartTime': 'Start Time',
+            'EndTime': 'End Time',
+        }
+
+
+class CourseForm(forms.ModelForm):
+    class Meta:
+        model = Course
+        fields = ('SubjectID', 'Department', 'Number', 'Name')
+        labels = {
+            'SubjectID': 'Subject',
+            'Department': 'Department',
+            'Number': 'Number',
+            'Name': 'Name'
+        }

@@ -43,7 +43,6 @@ def tutor_edit(request, pk):
         form = TutorForm(request.POST, instance=tutor)
         if form.is_valid():
             tutor = form.save(commit=False)
-            tutor.updated_date = timezone.now()
             tutor.save()
             tutor = Tutor.objects.filter()
             return render(request, 'portfolio/tutor_list.html',
@@ -177,3 +176,126 @@ def profile(request, pk):
     courses = Course.objects.filter(TutorForCourse=pk)
 
     return render(request, 'portfolio/profile.html', {'tutors': tutors, 'tutor': tutor, 'courses': courses})
+
+
+@login_required
+def availability_list(request):
+    try:
+        a = request.GET.get('availabilities')
+    except KeyError:
+        a = None
+    if a:
+        if a == "All Availabilities":
+            availabilities = Availability.objects.filter()
+        else:
+            a_list = a.split()
+            availabilities = Availability.objects.filter(
+                reduce(operator.and_,
+                       (Q(Day__icontains=a) for a in a_list)) |
+                reduce(operator.and_,
+                       (Q(TutorID__FirstName__icontains=a) for a in a_list)) |
+                reduce(operator.and_,
+                       (Q(SubjectID__Area__icontains=a) for a in a_list)) |
+                reduce(operator.and_,
+                       (Q(StartTime__icontains=a) for a in a_list))
+            )
+    else:
+        availabilities = ""
+    return render(request, 'portfolio/availability_list.html', {'availabilities': availabilities})
+
+
+@login_required
+def availability_new(request):
+    if request.method == "POST":
+        form = AvailabilityForm(request.POST)
+        if form.is_valid():
+            availability = form.save(commit=False)
+            availability.save()
+            availabilities = Availability.objects.filter()
+            return render(request, 'portfolio/availability_list.html', {'availabilities': availabilities})
+    else:
+        form = ShiftForm()
+    return render(request, 'portfolio/shift_new.html', {'form': form})
+
+
+@login_required
+def availability_edit(request, pk):
+    availability = get_object_or_404(Availability, pk=pk)
+    if request.method == "POST":
+        form = AvailabilityForm(request.POST, instance=availability)
+        if form.is_valid():
+            availability = form.save()
+            availability.save()
+            availabilities = Availability.objects.filter()
+            return render(request, 'portfolio/availability_list.html', {'availabilities': availabilities})
+    else:
+        # print("else")
+        form = AvailabilityForm(instance=availability)
+    return render(request, 'portfolio/shift_edit.html', {'form': form})
+
+
+@login_required
+def availability_delete(request, pk):
+    availability = get_object_or_404(Availability, pk=pk)
+    availability.delete()
+    availabilities = Availability.objects.filter()
+    return render(request, 'portfolio/availability_list.html', {'availabilities': availabilities})
+
+
+def course_list(request):
+    try:
+        a = request.GET.get('course')
+    except KeyError:
+        a = None
+    if a:
+        a_list = a.split()
+        courses = Course.objects.filter(
+            reduce(operator.and_,
+                   (Q(Department__icontains=a) for a in a_list)) |
+            reduce(operator.and_,
+                   (Q(Number__icontains=a) for a in a_list)) |
+            reduce(operator.and_,
+                   (Q(Name__icontains=a) for a in a_list))
+        )
+    else:
+        courses = Course.objects.filter()
+    return render(request, 'portfolio/course_list.html', {'courses': courses})
+
+
+@login_required
+def course_new(request):
+    if request.method == "POST":
+        form = CourseForm(request.POST)
+        if form.is_valid():
+            course = form.save(commit=False)
+            course.save()
+            courses = Course.objects.filter()
+            return render(request, 'portfolio/course_list.html', {'courses': courses})
+    else:
+        form = CourseForm()
+    return render(request, 'portfolio/course_new.html', {'form': form})
+
+
+@login_required
+def course_edit(request, pk):
+    course = get_object_or_404(Course, pk=pk)
+    if request.method == "POST":
+        form = CourseForm(request.POST, instance=course)
+        if form.is_valid():
+            course = form.save()
+            course.save()
+            courses = Course.objects.filter()
+            return render(request, 'portfolio/course_list.html', {'courses': courses})
+    else:
+        # print("else")
+        form = CourseForm(instance=course)
+    return render(request, 'portfolio/course_edit.html', {'form': form})
+
+
+@login_required
+def course_delete(request, pk):
+    course = get_object_or_404(Course, pk=pk)
+    course.delete()
+    courses = Course.objects.filter()
+    return render(request, 'portfolio/course_list.html', {'courses': courses})
+
