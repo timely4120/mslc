@@ -3,7 +3,7 @@ from .models import Tutor, Subject, Shift, Course, Availability
 
 
 class TutorList(admin.ModelAdmin):
-    list_display = ('FirstName', 'LastName', 'Email', 'PhoneNumber', 'RequestedHours')
+    list_display = ('FirstName', 'LastName', 'Email', 'PhoneNumber', 'RequestedHours', 'TutorImage')
     list_filter = ('FirstName', 'LastName')
     search_fields = ('FirstName', 'LastName')
     ordering = ['FirstName', 'LastName']

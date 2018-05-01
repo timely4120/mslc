@@ -22,7 +22,7 @@ def tutor_list(request):
 @login_required
 def tutor_new(request):
     if request.method == "POST":
-        form = TutorForm(request.POST)
+        form = TutorForm(request.POST, request.FILES)
         if form.is_valid():
             tutor = form.save(commit=False)
             tutor.save()
@@ -40,7 +40,7 @@ def tutor_edit(request, pk):
     tutor = get_object_or_404(Tutor, pk=pk)
     if request.method == "POST":
         # update
-        form = TutorForm(request.POST, instance=tutor)
+        form = TutorForm(request.POST, request.FILES, instance=tutor)
         if form.is_valid():
             tutor = form.save(commit=False)
             tutor.save()
