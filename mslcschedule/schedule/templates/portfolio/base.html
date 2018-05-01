@@ -82,6 +82,7 @@
                 <li><a href="{% url 'portfolio:course_list' %}">Courses</a></li>
                 {% if user.is_authenticated %}
                 <li><a href="{% url 'portfolio:subject_list' %}">Subjects</a></li>
+                <li><a href="{% url 'portfolio:availability_list' %}">Availability</a></li>
                 <li><a href="{% url 'admin:index' %}">Admin Page</a></li>
                 {% endif %}
             </ul>
