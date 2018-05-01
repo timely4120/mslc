@@ -55,8 +55,8 @@
                     Below is a schedule of when each of our tutors works.
                     <br>
                     <br>
-                    Use the subject buttons to filter the schedule by subject, or use the textbox to search for specific
-                    tutors, days of the week, or times.
+                    Use the dropdown menu to filter the schedule by subject, or use the textbox to search for specific
+                    tutors, days of the week, or times. For time searches, please use 24-hour time format.
                 </div>
             </div>
         </div>
@@ -65,7 +65,7 @@
 
 {# Shift Search Form #}
 <form action="{% url 'portfolio:shift_list' %}" method="GET">
-    <select name="shift">
+    <select class="form-control" name="shift">
         {% for subject in subjects %}
         <option value="{{ subject }}">{{ subject }}</option>
         {% endfor %}
@@ -96,6 +96,12 @@
     }
 </style>
 
+<form action="{% url 'portfolio:shift_list' %}" method="GET" class="subject_search">
+    <input type="submit" name="shift" value="{{ 'All Shifts' }}" class="btn btn-primary form-button normalize"/>
+</form>
+<form action="{% url 'portfolio:shift_list' %}" method="GET" class="subject_search">
+    <input type="submit" value="Reset" class="btn btn-danger form-button normalize"/>
+</form>
 
 <div class="row">
     <h2 id="heading" style="padding-left: 15Px">Shift Information</h2>
