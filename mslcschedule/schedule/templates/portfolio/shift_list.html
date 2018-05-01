@@ -65,6 +65,15 @@
 
 {# Shift Search Form #}
 <form action="{% url 'portfolio:shift_list' %}" method="GET">
+    <select name="shift">
+        {% for subject in subjects %}
+        <option value="{{ subject }}">{{ subject }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Search" class="btn btn-success form-button search not-text"/>
+</form>
+
+<form action="{% url 'portfolio:shift_list' %}" method="GET">
     <input id="shift-search" type="text"
            name="shift" value="{{ request.GET.event  }}"
            class="form-control search" placeholder="Search"/>
@@ -87,24 +96,6 @@
     }
 </style>
 
-<form action="{% url 'portfolio:shift_list' %}" method="GET" class="subject_search">
-    <input type="submit" name="shift" value="{{ 'Math' }}" class="btn btn-primary form-button normalize"/>
-</form>
-
-<form action="{% url 'portfolio:shift_list' %}" method="GET" class="subject_search">
-    <input type="submit" name="shift" value="{{ 'Chemistry' }}" class="btn btn-primary form-button normalize"/>
-</form>
-
-<form action="{% url 'portfolio:shift_list' %}" method="GET" class="subject_search">
-    <input type="submit" name="shift" value="{{ 'Physics' }}" class="btn btn-primary form-button normalize"/>
-</form>
-
-<form action="{% url 'portfolio:shift_list' %}" method="GET" class="subject_search">
-    <input type="submit" name="shift" value="{{ 'All Shifts' }}" class="btn btn-primary form-button normalize"/>
-</form>
-<form action="{% url 'portfolio:shift_list' %}" method="GET" class="subject_search">
-    <input type="submit" value="Reset" class="btn btn-danger form-button normalize"/>
-</form>
 
 <div class="row">
     <h2 id="heading" style="padding-left: 15Px">Shift Information</h2>

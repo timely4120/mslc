@@ -112,6 +112,7 @@ def shift_list(request):
     except KeyError:
         a = None
     if a:
+        subjects = Subject.objects.filter()
         if a == "All Shifts":
             shifts = Shift.objects.filter()
         else:
@@ -128,7 +129,8 @@ def shift_list(request):
             )
     else:
         shifts = ""
-    return render(request, 'portfolio/shift_list.html', {'shifts': shifts})
+        subjects = Subject.objects.filter()
+    return render(request, 'portfolio/shift_list.html', {'shifts': shifts, 'subjects': subjects})
 
 
 @login_required
