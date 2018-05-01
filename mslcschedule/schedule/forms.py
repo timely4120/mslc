@@ -5,14 +5,13 @@ from .models import Tutor, Subject, Shift, Course, Availability
 class TutorForm(forms.ModelForm):
     class Meta:
         model = Tutor
-        fields = ('FirstName', 'LastName', 'Email', 'PhoneNumber', 'RequestedHours', 'TutorImage')
+        fields = ('FirstName', 'LastName', 'Email', 'PhoneNumber', 'RequestedHours',)
         labels = {
             'FirstName': 'First Name',
             'LastName': 'Last Name',
             'Email': 'Email',
             'PhoneNumber': 'Phone Number',
             'RequestedHours': 'Requested Hours',
-            'TutorImage': 'Upload Image',
         }
 
     courses = forms.ModelMultipleChoiceField(queryset=Course.objects.all())

@@ -53,7 +53,6 @@ class Tutor(models.Model):
     Email = models.EmailField(max_length=100)
     PhoneNumber = models.CharField(max_length=10, )
     RequestedHours = models.DecimalField(max_digits=3, decimal_places=1)
-    TutorImage = models.ImageField(upload_to='media/profiles', default='/media/profiles/empty-profile.png')
 
     def __str__(self):
         return str(self.FirstName + " " + self.LastName)
