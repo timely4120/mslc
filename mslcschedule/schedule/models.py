@@ -3,8 +3,8 @@ import datetime
 
 DAYS = [
     ('Monday', 'Monday'),
-    ('Monday', 'Tuesday'),
-    ('Tuesday', 'Wednesday'),
+    ('Tuesday', 'Tuesday'),
+    ('Wednesday', 'Wednesday'),
     ('Thursday', 'Thursday'),
     ('Friday', 'Friday'),
     ('Saturday', 'Saturday'),
