@@ -123,6 +123,8 @@ def shift_list(request):
                 reduce(operator.and_,
                        (Q(TutorID__FirstName__icontains=a) for a in a_list)) |
                 reduce(operator.and_,
+                       (Q(TutorID__LastName__icontains=a) for a in a_list)) |
+                reduce(operator.and_,
                        (Q(SubjectID__Area__icontains=a) for a in a_list)) |
                 reduce(operator.and_,
                        (Q(StartTime__icontains=a) for a in a_list))
@@ -182,7 +184,7 @@ def profile(request, pk):
 @login_required
 def availability_list(request):
     try:
-        a = request.GET.get('availabilities')
+        a = request.GET.get('availability')
     except KeyError:
         a = None
     if a:
@@ -196,7 +198,7 @@ def availability_list(request):
                 reduce(operator.and_,
                        (Q(TutorID__FirstName__icontains=a) for a in a_list)) |
                 reduce(operator.and_,
-                       (Q(SubjectID__Area__icontains=a) for a in a_list)) |
+                       (Q(TutorID__LastName__icontains=a) for a in a_list)) |
                 reduce(operator.and_,
                        (Q(StartTime__icontains=a) for a in a_list))
             )
